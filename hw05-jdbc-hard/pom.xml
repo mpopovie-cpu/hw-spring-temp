@@ -10,8 +10,9 @@
     </parent>
 
     <groupId>ru.otus.hw</groupId>
-    <artifactId>hw05-jdbc-hard</artifactId>
+    <artifactId>hw05-jdbc</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <name>spring-jdbc-demo</name>
 
     <properties>
         <java.version>17</java.version>

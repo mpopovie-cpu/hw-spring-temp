@@ -3,23 +3,20 @@ package ru.otus.hw.commands;
 import lombok.RequiredArgsConstructor;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
-import ru.otus.hw.converters.AuthorConverter;
-import ru.otus.hw.services.AuthorService;
+import ru.otus.hw.models.Author;
+import ru.otus.hw.repositories.AuthorRepository;
 
-import java.util.stream.Collectors;
+import java.util.List;
 
-@RequiredArgsConstructor
 @ShellComponent
+@RequiredArgsConstructor
 public class AuthorCommands {
 
-    private final AuthorService authorService;
+    private final AuthorRepository authorRepository;
 
-    private final AuthorConverter authorConverter;
-
-    @ShellMethod(value = "Find all authors", key = "aa")
-    public String findAllAuthors() {
-        return authorService.findAll().stream()
-                .map(authorConverter::authorToString)
-                .collect(Collectors.joining("," + System.lineSeparator()));
+    @ShellMethod(key = "authors-list", value = "List all authors")
+    public void listAuthors() {
+        List<Author> authors = authorRepository.findAll();
+        authors.forEach(a -> System.out.println(String.format("ID: %d | Name: %s", a.getId(), a.getFullName())));
     }
 }
